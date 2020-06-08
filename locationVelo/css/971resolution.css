@@ -1,0 +1,37 @@
+#slider {
+    top: 120px;
+}
+h1 {
+    font-size: 30px;
+    margin-bottom: 0;
+}
+h3 {
+    font-size: 15px;
+}
+.fa, .far, .fas {
+    font-size: 15px;
+}
+#previousSlide, #paused, #play, #nextSlide  {
+    width: 25px;
+    height: 25px;
+}
+.fa-pause, .fa-play { 
+    margin-left: 25%;
+    margin-top: 25%;
+}
+#formDisplay {
+    top: 140px;
+}
+#reservation {
+    top: 610px;
+}
+#detailsStation {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+#detailsStation ul {
+    padding: 0;
+}
+#timer {
+    width: 90%;
+}

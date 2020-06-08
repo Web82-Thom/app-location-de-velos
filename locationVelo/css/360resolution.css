@@ -1,0 +1,13 @@
+.menu a {
+    width: 26%;
+}
+.menu ul {
+    display: flex;
+}
+#logo {
+    width: 100%;
+    margin-top: 10px;
+}
+#formDisplay {
+    top: 150px;
+}

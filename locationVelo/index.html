@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns#">
+<!-- open graph protocol pour les robots -->
+    <head>
+        <title> VéloK 31 </title>
+        <link rel="stylesheet" href="css/styles.css" type="text/css" />
+        <!-- encodage des caractères du document -->
+        <meta charset="utf-8" />
+        <!-- utilise pour simuler un en-tete de reponse HTTP -->
+        <meta http-equiv="refresh" content="3600" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <!-- @Media-Query -->
+        <link rel="stylesheet" media="screen and (max-width: 1024px)" href="css/1024resolution.css"  type="text/css" />
+        <link rel="stylesheet" media="screen and (max-width: 971px)" href="css/971resolution.css"  type="text/css" />
+        <link rel="stylesheet" media="screen and (max-width: 585px)" href="css/585resolution.css"  type="text/css" />
+        <link rel="stylesheet" media="screen and (max-width: 360px)" href="css/360resolution.css"  type="text/css" />
+        <!-- viewport ecran mobile -->
+        <!-- La largeur de mon site = largeur de l'appareil -->
+        <meta name="viewport" content="width=device-width initial-scale=1.0" />
+        <!-- affichage Icon-Apple -->
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="apple-touch-icon" href="apple-touch-icon-144-precomposed.png" />
+        <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-144-precomposed.png" />
+        <!-- description de la page web -->
+        <meta name="description" content="Bienvenue chez VéloK 31,à Toulouse venez decouvrir nos services en location de Vélo, nos stations et réserver sans soucis." />
+        <!-- pour les moteurs de recherches -->
+        <meta name="keywords" content="Vélo,location,Toulouse-vélos," />
+        <!-- Créateur du site -->
+        <meta name="author" content="ORTA Thomas" />
+        <!-- Cela permet aux éditeurs du logiciel de faire des statistiques IBM -->
+        <meta name="generator" content="nom de l'outil (version)" />
+        <!-- Droit copiright -->
+        <meta name="copyright" content="Web@82" />
+        <!-- protocole Open Graph -->
+        <meta property="og:title" content="VéloK 31" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="images/logo.jpg" />
+        <meta property="og:url" content="index.html" />
+        <meta property="og:description" content="Bienvenue chez VéloK, venez decouvrir nos services en location de Vélo, nos stations et réserver sans soucis." />
+        <meta property="og:site_name" content="VeloK" />
+        <!-- contrôler la façon dont les moteurs de recherches explorent et indexent une page -->
+        <meta name="robots" content="none" />
+        <!-- lien API mapbox , lien leaflet -->
+        <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    </head>
+
+    <body> 
+<!-- SECTION HEADER--> 
+        <header>    
+            <nav class="menu">
+                <a href="#"><img id="logo" src="images/logo.jpg" alt="Logo Vélok 31" title="Accueil, Bienvenue!"/></a>     
+                <h1>Mon application "Vélok 31"</h1>
+                <ul>
+                    <li id="startResa"><a href="#formDisplay" title="Cliquez pour acceder à la reservation">Je réserve mon Vélo!</a></li>
+                </ul>
+            </nav>
+        </header> 
+<!-- SECTION SLIDER  -->
+        <section id="slider">
+            <div class="slide">
+                <div class="titleSlider"><h3 class="slideText"><span>1. Sélectionnez votre station</span></h3></div>
+                <img src="images/mapSlider.jpg" alt="Sélectionner votre station"/>
+            </div>
+            <div class="slide">
+                <div class="titleSlider"><h3 class="slideText"><span>2. Remplissez le formulaire</span></h3></div>
+                <img src="images/formSlider.jpg" alt="Remplisser le formulaire"/>
+            </div>
+            <div class="slide">
+                <div class="titleSlider"><h3 class="slideText"><span>3. Récupérez votre vélo !</span></h3></div>
+                <img src="images/velosSlider.jpg" alt="Récupérer votre vélo"/>
+            </div>
+            <div id="controls">
+                <a id="previousSlide" title="Précedent"><i class="fas fa-angle-left"></i></a>
+                <a id="paused" title="Pause"><i class="fas fa-pause"></i></a>
+                <a id="play" title="Lecture"><i class="fas fa-play"></i></a>
+                <a id="nextSlide" title="Suivant"><i class="fas fa-angle-right"></i></a>
+            </div>
+        </section>
+<!-- SECTION carte/formulaire/canvas -->
+        <section id="formDisplay">
+            <div id="mapReservation">
+                <div id="backgroundMap">
+                    <div id="myMap"></div>
+                </div>
+                <div id="reservation">
+                    <div id="detailsStation" ><h3>Détails de la station</h3>
+                        <ul>
+                            <li><strong>Nom de la station : </strong><span id="nameStation"></span></li>
+                            <li><strong>Adresse : </strong><span id="address"></span></li>
+                            <li><strong>Place : </strong><span id="place"></span></li>
+                            <li><strong>Vélos diponible : </strong><span id="bikeDispo"></span></li>
+                        </ul>
+                        <div id="button">
+                            <a href="#validationButton" id="reserveButton">Réserver</a>
+                        </div>
+                        <p id="noBike"> Réservation Impossible plus de vélos disponible!</p> 
+                    </div>
+                    <form id="form"><h3>Informations personnelles</h3>
+                        <ul>
+                            <li><label for="nom"><strong>Nom :</strong></label>
+                                <input type="text" value="text" id="nom" placeholder="Nom*" />
+                            </li>
+                            <li><label for="prenom"><strong>Prénom :</strong></label>
+                                <input type="text" value="text" id="prenom" placeholder="Prénom*" />
+                            </li>
+                        </ul>
+                        <a href="#validateButton" id="validationButton">Validation</a>
+                        <!--CANVAS-->
+                        <div id="signature"><h3>Signature</h3>
+                            <canvas id="canvas"></canvas>
+                            <p>Veuillez signer ci-dessus pour finaliser votre réservation.</p>
+                            <div id="canvasButton">
+                                <a id="clearButton" href="#">Effacer</a>
+                                <a id="validateButton" href="#deleteStorageButton">Valider</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- SECTION RESERVATION DELAIS-->
+            <section id="timer">
+                <h3>Allez récuperer votre vélo!</h3>
+                <p><span id="confirmReservation"></span></p>
+                <p><span id="counter"></span></p><br>
+                <p id="warning">Votre réservation à expirer! Veuillez rafraichir la page ou cliquez ci-dessous.</p>
+                <a id="deleteStorageButton" href="#">Annuler votre réservation</a>
+            </section>
+        </section>
+
+        <script src="https://kit.fontawesome.com/67cbdf618e.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+        <script src="js/slider.js"></script>
+        <script src="js/map.js"></script>
+        <script src="js/station.js"></script>
+        <script src="js/formulaire.js"></script>
+        <script src="js/canvas.js"></script>
+        <script src="js/timer.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
